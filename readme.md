@@ -4,8 +4,8 @@ Glue is a lightweight dependency manager for javascript, or if you prefer a inst
 It was originally going to be able to do dependency injection, however due to the lack of good cross browser
 javascript reflection, it ended up being a simple dependency manager.
 
-```javascript
 ## Binding Elements
+```javascript
 var Glue = new Glue(); // Global Glue Instance
 Glue.Bind("MyInstance").To(new MyInstance()); // Bind a new instance to the key "MyInstance"
 ```
