@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Simple swap in and out example</title>
+	</head>
+	<body>
+		
+		<input id="some-value" type="text" value="Hello"/>
+		<input id="display-value" type="button" value="Display Value"/>
+		<div id="inline-value"></div>
+		
+		<input id="swap-in-alerts" type="button" value="Swap In Alerts"/>
+		<input id="swap-in-inline" type="button" value="Swap In Inline"/>
+		
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+		<script type="text/javascript" src="../../glue.js"></script>
+		<script id="class-definitions" type="text/javascript">
+		
+			function AlertDisplayer() {
+				this.Display = function(message) {
+					alert(message);
+				};
+			};
+			
+			function InlineDisplayer(inlineSelector) {
+				this.Display = function(message) {
+					$(inlineSelector).text(message);
+				};
+			}
+			
+		</script>
+		
+		<script id="glue-defaults" type="text/javascript">
+			
+			var alertDisplayer = new AlertDisplayer();
+			var inlineDisplayer = new InlineDisplayer("#inline-value");
+			
+			var Glue = new Glue();
+			Glue.Bind("Displayer").To(alertDisplayer);
+			
+		</script>
+		
+		<script id="event-bindings" type="text/javascript">
+			
+			$("#swap-in-alerts").click(function() { Glue.Bind("Displayer").To(alertDisplayer);});
+			$("#swap-in-inline").click(function() { Glue.Bind("Displayer").To(inlineDisplayer);});
+			$("#display-value").click(function() { 
+				var message = $("#some-value").val();
+				var displayer = Glue.Get("Displayer");
+				displayer.Display(message);
+			});
+			
+		</script>
+	</body>
+</html>
